@@ -33,73 +33,125 @@ class _MyHomePageState extends State<MyHomePage> {
   PageController pages = PageController();
   int currentIndex = 0;
 
+  String buttonText = 'Next';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          SizedBox(
-            height: 500,
-            child: PageView.builder(
-                onPageChanged: (value) {
-                  setState(() {
-                    currentIndex = value;
-                  });
-                },
-                itemCount: pageList.length,
-                controller: pages,
-                itemBuilder: (context, index) {
-                  PageData curIndex = pageList[index];
-                  return Column(
-                    children: [
-                      const Text('Skip'),
-                      Image.network(curIndex.image),
-                      Text(
-                        curIndex.text,
-                        style: const TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 30),
-                      ),
-                      Text(curIndex.subtext),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: List.generate(
-                            pageList.length,
-                            (index) => AnimatedContainer(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: const Color(0xff6C63FF),
-                                ),
-                                height: 10,
-                                margin:
-                                    const EdgeInsets.symmetric(horizontal: 5),
-                                width: index == currentIndex ? 50 : 10,
-                                duration: const Duration(seconds: 1))),
-                      ),
-                      Row(
-                        children: [
-                          ElevatedButton(
-                              onPressed: () {
-                                pages.animateToPage(currentIndex - 1,
-                                    duration: const Duration(microseconds: 1),
-                                    curve: Curves.easeIn);
-                              },
-                              child: const Text('Next')),
-                          ElevatedButton(
-                              onPressed: () {
-                                pages.animateToPage(currentIndex + 1,
-                                    duration: const Duration(microseconds: 1),
-                                    curve: Curves.easeIn);
-                              },
-                              child: const Text('Next'))
-                        ],
-                      )
-                    ],
-                  );
-                }),
-          ),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 80, 20, 30),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 600,
+              child: PageView.builder(
+                  onPageChanged: (value) {
+                    setState(() {
+                      currentIndex = value;
+                    });
+                  },
+                  itemCount: pageList.length,
+                  controller: pages,
+                  itemBuilder: (context, index) {
+                    PageData curIndex = pageList[index];
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            TextButton(
+                                onPressed: () {},
+                                child: const Text(
+                                  'Skip',
+                                  style: TextStyle(
+                                      fontSize: 15, color: Colors.black),
+                                ))
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 25,
+                        ),
+                        AspectRatio(
+                            aspectRatio: 16 / 9,
+                            child: Image.network(curIndex.image)),
+                        const SizedBox(
+                          height: 35,
+                        ),
+                        Text(
+                          curIndex.text,
+                          style: const TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 30),
+                        ),
+                        const SizedBox(
+                          height: 35,
+                        ),
+                        Text(
+                          curIndex.subtext,
+                          textAlign: TextAlign.center,
+                        ),
+                        const SizedBox(
+                          height: 35,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: List.generate(
+                              pageList.length,
+                              (index) => AnimatedContainer(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: const Color(0xff6C63FF),
+                                  ),
+                                  height: 10,
+                                  margin:
+                                      const EdgeInsets.symmetric(horizontal: 5),
+                                  width: index == currentIndex ? 40 : 10,
+                                  duration: const Duration(seconds: 1))),
+                        ),
+                        const SizedBox(
+                          height: 55,
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(13)),
+                                      backgroundColor: const Color(0xff6C63FF),
+                                      minimumSize: const Size(50, 50)),
+                                  onPressed: () {
+                                    // setState(() {
+                                    //   Text:
+                                    //   index == currentIndex
+                                    //       ? buttonText
+                                    //       : 'Get Started';
+                                    // });
+                                    // setState(() {
+                                    //   buttonText = "Get Started";
+                                    // });
+                                    // buttonText:
+                                    // index == currentIndex
+                                    //     ? buttonText
+                                    //     : 'Get Started';
+                                    pages.animateToPage(currentIndex + 1,
+                                        duration:
+                                            const Duration(microseconds: 1),
+                                        curve: Curves.easeIn);
+                                  },
+                                  child: Text(buttonText)),
+                            ),
+                          ],
+                        )
+                      ],
+                    );
+                  }),
+            ),
+          ],
+        ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
