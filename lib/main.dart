@@ -48,6 +48,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   onPageChanged: (value) {
                     setState(() {
                       currentIndex = value;
+                      buttonText =
+                          value == pageList.length - 1 ? 'Get Started' : 'Next';
                     });
                   },
                   itemCount: pageList.length,
@@ -124,19 +126,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                       backgroundColor: const Color(0xff6C63FF),
                                       minimumSize: const Size(50, 50)),
                                   onPressed: () {
-                                    // setState(() {
-                                    //   Text:
-                                    //   index == currentIndex
-                                    //       ? buttonText
-                                    //       : 'Get Started';
-                                    // });
-                                    // setState(() {
-                                    //   buttonText = "Get Started";
-                                    // });
-                                    // buttonText:
-                                    // index == currentIndex
-                                    //     ? buttonText
-                                    //     : 'Get Started';
                                     pages.animateToPage(currentIndex + 1,
                                         duration:
                                             const Duration(microseconds: 1),
