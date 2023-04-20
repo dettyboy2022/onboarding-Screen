@@ -34,6 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int currentIndex = 0;
 
   String buttonText = 'Next';
+  String skipText = 'Skip';
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       currentIndex = value;
                       buttonText =
                           value == pageList.length - 1 ? 'Get Started' : 'Next';
+                      skipText = value == pageList.length - 1 ? '' : 'Skip';
                     });
                   },
                   itemCount: pageList.length,
@@ -64,9 +66,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           children: [
                             TextButton(
                                 onPressed: () {},
-                                child: const Text(
-                                  'Skip',
-                                  style: TextStyle(
+                                child: Text(
+                                  skipText,
+                                  style: const TextStyle(
                                       fontSize: 15, color: Colors.black),
                                 ))
                           ],
@@ -131,7 +133,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                             const Duration(microseconds: 1),
                                         curve: Curves.easeIn);
                                   },
-                                  child: Text(buttonText)),
+                                  child: Text(
+                                    buttonText,
+                                    style: const TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500),
+                                  )),
                             ),
                           ],
                         )
